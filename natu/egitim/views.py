@@ -1,25 +1,17 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-
 from rest_framework.views import APIView
-from egitim.serializers import SSerializer, SikimsonikSerializer
-from egitim.models import Okul, SikimsonikModel
+from rest_framework import status
+from egitim.serializers import SSerializer
+from egitim.models import RandomUser
 # Create your views here.
 
 
-class OkulView(APIView):
+class RandomUserView(APIView):
     def get(self, request, format=None):
-        okul = Okul.objects.all()
-        serializer = SSerializer(okul, many=True)
+        users = RandomUser.objects.all()
+        serializer = SSerializer(users, many=True)
 
         return Response(serializer.data)
 
-    def post(self, request, format=None):
-        pass
-
-class SikimsonikView(APIView):
-    def get(self, request, farmat=None):
-        sikimsoniks = SikimsonikModel.objects.all()
-        serializer = SikimsonikSerializer(sikimsoniks, many=True)
-
-        return Response(serializer.data)
+    
