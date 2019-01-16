@@ -14,4 +14,12 @@ class RandomUserView(APIView):
 
         return Response(serializer.data)
 
-    
+    def post(self, request, format=None):
+        serializer = SSerializer(data=request.data)
+        #import ipdb; ipdb.set_trace()
+        if serializer.is_valid():
+            print("data is valid BİÇ")
+            RandomUser.objects.save_post(serializer.data)
+
+            return Response("Ok!", status=status.HTTP_201_CREATED)
+        return Response("", status=status.HTTP_400_BAD_REQUEST)

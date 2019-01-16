@@ -16,6 +16,10 @@ class save_random_user_manager(models.Manager):
             setattr(i, 'code', self.generate_random_code())
         super(save_random_user_manager, self).bulk_create(data)
 
+    def save_post(self, data):
+        data['code'] = self.generate_random_code()
+        super(save_random_user_manager, self).create(**data)
+
 
 class RandomUser(models.Model):
     name = models.CharField(max_length=99)
